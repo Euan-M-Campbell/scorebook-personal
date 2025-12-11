@@ -38,4 +38,4 @@ jobs:
       - name: Run integration tests
         env:
           TRISMIK_API_KEY: ${{ secrets.TRISMIK_API_KEY }}
-        run: poetry run pytest tests/integration -m "integration" -v
+        run: poetry run pytest tests/integration -v
