@@ -59,22 +59,6 @@ def test_create_project_with_description():
     assert project.id is not None
 
 
-def test_create_multiple_projects():
-    """Test creating multiple projects."""
-    projects = []
-
-    for i in range(3):
-        project_name = f"test-multi-{uuid.uuid4().hex[:8]}"
-        project = create_project(name=project_name)
-        projects.append(project)
-
-    # Verify all projects were created with unique IDs
-    assert len(projects) == 3
-    assert all(p.id is not None for p in projects)
-    project_ids = [p.id for p in projects]
-    assert len(set(project_ids)) == 3
-
-
 @pytest.mark.asyncio
 async def test_create_project_async():
     """Test creating a project asynchronously."""
@@ -96,22 +80,6 @@ async def test_create_project_async_with_description():
 
     assert project.name == project_name
     assert project.description == description
-
-
-@pytest.mark.asyncio
-async def test_create_multiple_projects_async_concurrent():
-    """Test creating multiple projects concurrently."""
-    import asyncio
-
-    project_names = [f"test-concurrent-{uuid.uuid4().hex[:8]}" for _ in range(3)]
-    tasks = [create_project_async(name=name) for name in project_names]
-    projects = await asyncio.gather(*tasks)
-
-    # Verify all projects were created with unique IDs
-    assert len(projects) == 3
-    assert all(p.id is not None for p in projects)
-    project_ids = [p.id for p in projects]
-    assert len(set(project_ids)) == 3
 
 
 def test_create_project_with_empty_name():

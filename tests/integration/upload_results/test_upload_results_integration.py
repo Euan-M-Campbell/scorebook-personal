@@ -35,9 +35,9 @@ def ensure_logged_in(test_api_key, monkeypatch):
     monkeypatch.setenv("TRISMIK_API_KEY", test_api_key)
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def test_project():
-    """Create a test project for uploads."""
+    """Create a test project for uploads (shared across all tests in module)."""
     project_name = f"test-upload-project-{uuid.uuid4().hex[:8]}"
     project = create_project(name=project_name, description="Integration test project")
     return project
